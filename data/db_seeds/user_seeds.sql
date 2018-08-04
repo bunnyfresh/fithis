@@ -1,0 +1,4 @@
+
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `user_type`, `social_site`, `social_site_id`, `verification_token`, `account_status`, `reset_token`, `mobile_verification_token`, `reset_token_time`, `created_at`, `updated_at`, `last_logged_in`) VALUES
+(1, NULL, NULL, 'super@mailinator.com', '$2a$10$rd.fFFqDOtbYoij8U4X2/.B7OXbYAne/nov/IJ3rCCXlJKyWL52BC', 1, NULL, NULL, NULL, 1, NULL, NULL, NULL, '2018-01-24 01:31:33', '2018-03-20 10:30:06', 1517592698),
+(2, NULL, NULL, 'string@mailinator.com', '$2a$10$rd.fFFqDOtbYoij8U4X2/.B7OXbYAne/nov/IJ3rCCXlJKyWL52BC', 2, NULL, NULL, NULL, 1, NULL, NULL, NULL, '2018-01-24 01:31:33', '2018-03-20 10:30:03', 1517592698);

@@ -1,0 +1,3688 @@
+{
+   "swagger": "2.0",
+   "info": {
+      "description": "API for Fixthis",
+      "version": "0.1.0",
+      "title": "Fixthis",
+      "termsOfService": ""
+   },
+   "basePath": "/api",
+   "tags": [
+      {
+         "name": "auth",
+         "description": "Everything about Authentication"
+      }
+   ],
+   "schemes": [
+      "http"
+   ],
+   "paths": {
+      "/auth/login": {
+         "post": {
+            "tags": [
+               "Authentication"
+            ],
+            "summary": "login",
+            "description": "",
+            "operationId": "auth.login",
+            "consumes": [
+               "application/json"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "body",
+                  "name": "loginRequestObj",
+                  "required": true,
+                  "description": "Request Object",
+                  "schema": {
+                     "$ref": "#/definitions/LoginRequest"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/auth/social": {
+         "post": {
+            "tags": [
+               "Authentication"
+            ],
+            "summary": "Authenticate with social media",
+            "description": "Api to authenticate with social media",
+            "operationId": "auth.authSocial",
+            "consumes": [
+               "application/json"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "body",
+                  "name": "authSocialRequestObj",
+                  "required": true,
+                  "description": "Request Object",
+                  "schema": {
+                     "$ref": "#/definitions/LoginSocialRequest"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/auth/register": {
+         "post": {
+            "tags": [
+               "Authentication"
+            ],
+            "summary": "Register",
+            "description": "Api to register user.",
+            "operationId": "auth.register",
+            "consumes": [
+               "application/json"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "body",
+                  "name": "registerRequestObj",
+                  "required": true,
+                  "description": "Request Object",
+                  "schema": {
+                     "$ref": "#/definitions/RegisterRequest"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/auth/forgotpassword": {
+         "post": {
+            "tags": [
+               "Authentication"
+            ],
+            "summary": "Forgot Password",
+            "description": "Api for forgot password.",
+            "operationId": "auth.forgotpassword",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "email",
+                  "required": true,
+                  "description": "User email",
+                  "type": "string"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/auth/resetpassword/{token}": {
+         "post": {
+            "tags": [
+               "Authentication"
+            ],
+            "summary": "Verify user account",
+            "description": "Api to reset user password",
+            "operationId": "api.resetpassword",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "path",
+                  "name": "token",
+                  "type": "string",
+                  "required": true,
+                  "description": "Reset token"
+               },
+               {
+                  "in": "formData",
+                  "name": "password",
+                  "type": "string",
+                  "required": true,
+                  "description": "Password to reset"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/auth/refreshtoken": {
+         "get": {
+            "tags": [
+               "Authentication"
+            ],
+            "summary": "Refresh Token",
+            "description": "Api to get refresh token",
+            "operationId": "auth.refreshToken",
+            "consumes": [
+               "application/json"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/auth/logout": {
+         "post": {
+            "tags": [
+               "Authentication"
+            ],
+            "summary": "Api to logout",
+            "description": "Api for user logout",
+            "operationId": "api.logout",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "device_token",
+                  "required": true,
+                  "description": "Device from which user is being logged out",
+                  "type": "string"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/user/createprofile": {
+         "post": {
+            "tags": [
+               "User"
+            ],
+            "summary": "Create User Profile",
+            "description": "Api to create user profile",
+            "operationId": "api.createUserProfile",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "first_name",
+                  "type": "string",
+                  "required": true,
+                  "description": "First name"
+               },
+               {
+                  "in": "formData",
+                  "name": "last_name",
+                  "type": "string",
+                  "required": true,
+                  "description": "Last name"
+               },
+               {
+                  "in": "formData",
+                  "name": "subUrb",
+                  "type": "string",
+                  "required": true,
+                  "description": "Suburban Address"
+               },
+               {
+                  "in": "formData",
+                  "name": "asFixer",
+                  "type": "integer",
+                  "enum": [
+                     0,
+                     1
+                  ],
+                  "required": true,
+                  "description": "Do you want to create profile as fixer"
+               },
+               {
+                  "in": "formData",
+                  "name": "asPoster",
+                  "type": "integer",
+                  "enum": [
+                     0,
+                     1
+                  ],
+                  "required": true,
+                  "description": "Do you want to create profile as poster"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/verify/{token}": {
+         "get": {
+            "tags": [
+               "User"
+            ],
+            "summary": "Verify user account",
+            "description": "Api to verify user account.",
+            "operationId": "api.verify",
+            "consumes": [
+               "application/json"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "path",
+                  "name": "token",
+                  "type": "string",
+                  "required": true,
+                  "description": "Verification Token"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/user/uploadpic": {
+         "post": {
+            "tags": [
+               "User"
+            ],
+            "summary": "Upload profile pic",
+            "description": "Api to upload user profile pic",
+            "operationId": "user.uploadprofilepic",
+            "consumes": [
+               "multipart/form-data"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "profilePic",
+                  "type": "file",
+                  "required": true,
+                  "description": "Pic to upload"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/user/uploadcoverpic": {
+         "post": {
+            "tags": [
+               "User"
+            ],
+            "summary": "Upload cover pic",
+            "description": "Api to upload user cover pic",
+            "operationId": "user.uploadcoverpic",
+            "consumes": [
+               "multipart/form-data"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "coverPic",
+                  "type": "file",
+                  "required": true,
+                  "description": "Pic to upload"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/profile/addportfolio": {
+         "post": {
+            "tags": [
+               "User"
+            ],
+            "summary": "Upload portfolio",
+            "description": "Api to upload user portfolio",
+            "operationId": "user.uploadportfolio",
+            "consumes": [
+               "multipart/form-data"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "portfolio",
+                  "type": "file",
+                  "required": true,
+                  "description": "Pic to upload"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/profile/removeportfolio": {
+         "post": {
+            "tags": [
+               "User"
+            ],
+            "summary": "Remove Portfolio",
+            "description": "Api to remove user portfolio",
+            "operationId": "user.removeportfolio",
+            "consumes": [
+               "multipart/form-data"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "portfolioid",
+                  "type": "integer",
+                  "required": true,
+                  "description": "portfolio id to remove"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/profile/handlegeneralinfo": {
+         "post": {
+            "tags": [
+               "User"
+            ],
+            "summary": "Handle general user info in more tab",
+            "description": "Api to handle general user info in more tab",
+            "operationId": "user.handlegeneralinfo",
+            "consumes": [
+               "multipart/form-data"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "first_name",
+                  "type": "string",
+                  "description": "First name"
+               },
+               {
+                  "in": "formData",
+                  "name": "last_name",
+                  "type": "string",
+                  "description": "last name"
+               },
+               {
+                  "in": "formData",
+                  "name": "location",
+                  "type": "string",
+                  "description": "location"
+               },
+               {
+                  "in": "formData",
+                  "name": "tagline",
+                  "type": "string",
+                  "description": "Tag Line"
+               },
+               {
+                  "in": "formData",
+                  "name": "about_me",
+                  "type": "string",
+                  "description": "About me"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/profile/handleprivateinfo": {
+         "post": {
+            "tags": [
+               "User"
+            ],
+            "summary": "Handle private user in more tab ",
+            "description": "Api to handle private user info in more tab",
+            "operationId": "user.privateinfo",
+            "consumes": [
+               "multipart/form-data"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "email",
+                  "type": "string",
+                  "required": true,
+                  "description": "Email"
+               },
+               {
+                  "in": "formData",
+                  "name": "birth_date",
+                  "type": "string",
+                  "required": true,
+                  "description": "Date of birth (yyyy-mm-dd)"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/profile/dashboard": {
+         "get": {
+            "tags": [
+               "More Tab"
+            ],
+            "summary": "Get user dashboard",
+            "description": "Api to get user dashboard in more tab",
+            "operationId": "user.getdashboard",
+            "consumes": [
+               "application/json"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/user/checkinfo": {
+         "get": {
+            "tags": [
+               "User"
+            ],
+            "summary": "Get user info (checklist) before posting job",
+            "description": "Api to get user user info that is mandatory before posting the job",
+            "operationId": "user.getcheckinfo",
+            "consumes": [
+               "application/json"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/user/getAccountData": {
+         "get": {
+            "tags": [
+               "User"
+            ],
+            "summary": "Get user accountData",
+            "description": "Api to get user account info",
+            "operationId": "user.accountInfo",
+            "consumes": [
+               "application/json"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/notifications/list": {
+         "get": {
+            "tags": [
+               "Notifications"
+            ],
+            "summary": "Get user notifications",
+            "description": "Api to get list of user notifications",
+            "operationId": "api.getnotifications",
+            "consumes": [
+               "application/json"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "query",
+                  "name": "pp",
+                  "type": "number",
+                  "description": "Notifications per page"
+               },
+               {
+                  "in": "query",
+                  "name": "pg",
+                  "type": "number",
+                  "description": "page number"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/user/profile": {
+         "get": {
+            "tags": [
+               "User"
+            ],
+            "summary": "profile",
+            "description": "",
+            "operationId": "user.getprofile",
+            "consumes": [
+               "application/json"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/user/ratings": {
+         "get": {
+            "tags": [
+               "User"
+            ],
+            "summary": "profile",
+            "description": "",
+            "operationId": "user.getratings",
+            "consumes": [
+               "application/json"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/user/onlinestatus": {
+         "post": {
+            "tags": [
+               "User"
+            ],
+            "summary": "Set user online status",
+            "description": "",
+            "operationId": "user.setonlinestatus",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "status",
+                  "type": "string",
+                  "enum": [
+                     "0",
+                     "1"
+                  ],
+                  "required": true,
+                  "description": "Set current user online status"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/user/changepassword": {
+         "post": {
+            "tags": [
+               "User"
+            ],
+            "summary": "API to update user password",
+            "description": "Api to change user password",
+            "operationId": "api.changeuserpassword",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "current_password",
+                  "type": "string",
+                  "required": true,
+                  "description": "Current User Password"
+               },
+               {
+                  "in": "formData",
+                  "name": "new_password",
+                  "type": "string",
+                  "required": true,
+                  "description": "New User Password"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/job/details/{jobId}": {
+         "get": {
+            "tags": [
+               "Jobs"
+            ],
+            "summary": "Get Job details",
+            "description": "Api to get job details",
+            "operationId": "api.jobdetails",
+            "consumes": [
+               "application/json"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "path",
+                  "name": "jobId",
+                  "type": "string",
+                  "required": true,
+                  "description": "JobId"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/job/categories": {
+         "get": {
+            "tags": [
+               "Jobs"
+            ],
+            "summary": "Get Job categories",
+            "description": "Api to get job categories",
+            "operationId": "api.getjobcategories",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/job/list": {
+         "get": {
+            "tags": [
+               "Jobs"
+            ],
+            "summary": "API to browse job list",
+            "description": "Api to browse job list",
+            "operationId": "api.browsejobs",
+            "consumes": [],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "query",
+                  "name": "myjobs",
+                  "type": "boolean",
+                  "required": true,
+                  "description": "Do you want users jobs only"
+               },
+               {
+                  "in": "query",
+                  "name": "user_id",
+                  "type": "integer",
+                  "description": "Id of user for whom you want to see the jobs. Works only with myjobs = false"
+               },
+               {
+                  "in": "query",
+                  "name": "lat",
+                  "type": "string",
+                  "description": "User current latitude"
+               },
+               {
+                  "in": "query",
+                  "name": "long",
+                  "type": "string",
+                  "description": "User current longitude"
+               },
+               {
+                  "in": "query",
+                  "name": "radius",
+                  "type": "string",
+                  "description": "Radius (in Miles ), -1 in which radius is ignored"
+               },
+               {
+                  "in": "query",
+                  "name": "title",
+                  "type": "string",
+                  "description": "Search by job title"
+               },
+               {
+                  "in": "query",
+                  "name": "is_online",
+                  "type": "integer",
+                  "enum": [
+                     0,
+                     1
+                  ],
+                  "description": "Filter by job method"
+               },
+               {
+                  "in": "query",
+                  "name": "job_category",
+                  "type": "integer",
+                  "description": "Filter by job category"
+               },
+               {
+                  "in": "query",
+                  "name": "job_status",
+                  "type": "string",
+                  "enum": [
+                     "0",
+                     "1",
+                     "2",
+                     "3",
+                     "4"
+                  ],
+                  "description": "Job status 0==> Draft, 1=> Post , 2==> Assigned by user , 3==>Completed, 4==>Applied"
+               },
+               {
+                  "in": "query",
+                  "name": "sort_field",
+                  "type": "string",
+                  "enum": [
+                     "most_recent",
+                     "distance",
+                     "price_asc",
+                     "price_desc",
+                     "task_status"
+                  ],
+                  "description": "Field to sort by"
+               },
+               {
+                  "in": "query",
+                  "name": "pp",
+                  "type": "integer",
+                  "description": "records per page"
+               },
+               {
+                  "in": "query",
+                  "name": "pg",
+                  "type": "integer",
+                  "description": "page number"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/job/new": {
+         "post": {
+            "tags": [
+               "Jobs"
+            ],
+            "summary": "Post New Job",
+            "description": "Api to create new job",
+            "operationId": "api.createNewJob",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "job_name",
+                  "type": "string",
+                  "required": true,
+                  "description": "Job name"
+               },
+               {
+                  "in": "formData",
+                  "name": "job_description",
+                  "type": "string",
+                  "required": true,
+                  "description": "Job description"
+               },
+               {
+                  "in": "formData",
+                  "name": "is_online_task",
+                  "type": "integer",
+                  "enum": [
+                     0,
+                     1
+                  ],
+                  "required": true,
+                  "description": "Is this task to be done online"
+               },
+               {
+                  "in": "formData",
+                  "name": "category_id",
+                  "type": "integer",
+                  "required": true,
+                  "description": "category of job"
+               },
+               {
+                  "in": "formData",
+                  "name": "location",
+                  "type": "string",
+                  "required": true,
+                  "description": "Job location"
+               },
+               {
+                  "in": "formData",
+                  "name": "latitude",
+                  "type": "string",
+                  "required": true,
+                  "description": "Job latitude"
+               },
+               {
+                  "in": "formData",
+                  "name": "longitude",
+                  "type": "string",
+                  "required": true,
+                  "description": "Job longitude"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/job/update": {
+         "post": {
+            "tags": [
+               "Jobs"
+            ],
+            "summary": "Update Job",
+            "description": "Api to update job",
+            "operationId": "api.updateJob",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "job_id",
+                  "type": "number",
+                  "required": true,
+                  "description": "Job id to update"
+               },
+               {
+                  "in": "formData",
+                  "name": "job_name",
+                  "type": "string",
+                  "description": "Job name"
+               },
+               {
+                  "in": "formData",
+                  "name": "job_description",
+                  "type": "string",
+                  "description": "Job description"
+               },
+               {
+                  "in": "formData",
+                  "name": "is_online_task",
+                  "type": "integer",
+                  "enum": [
+                     0,
+                     1
+                  ],
+                  "description": "Is this task to be done online"
+               },
+               {
+                  "in": "formData",
+                  "name": "job_status",
+                  "type": "integer",
+                  "enum": [
+                     0,
+                     1,
+                     2,
+                     3
+                  ],
+                  "description": "Job status 0==> Draft, 1=> Post , 2==> Assigned by user , 3==>Completed"
+               },
+               {
+                  "in": "formData",
+                  "name": "hourly_rate",
+                  "type": "number",
+                  "description": "Hourly rate of job"
+               },
+               {
+                  "in": "formData",
+                  "name": "hours",
+                  "type": "number",
+                  "description": "Hours"
+               },
+               {
+                  "in": "formData",
+                  "name": "task_price",
+                  "type": "number",
+                  "description": "Task budget"
+               },
+               {
+                  "in": "formData",
+                  "name": "task_end_day",
+                  "type": "string",
+                  "description": "Task end day == > dd-mm-yyyy"
+               },
+               {
+                  "in": "formData",
+                  "name": "task_end_time",
+                  "type": "string",
+                  "description": "Task end time == > 12:00am"
+               },
+               {
+                  "in": "formData",
+                  "name": "no_of_fixers",
+                  "type": "number",
+                  "description": "Number of fixers"
+               },
+               {
+                  "in": "formData",
+                  "name": "abn_number",
+                  "type": "string",
+                  "description": "Poster abn number"
+               },
+               {
+                  "in": "formData",
+                  "name": "location",
+                  "type": "string",
+                  "description": "Job location"
+               },
+               {
+                  "in": "formData",
+                  "name": "latitude",
+                  "type": "string",
+                  "description": "Job latitude"
+               },
+               {
+                  "in": "formData",
+                  "name": "longitude",
+                  "type": "string",
+                  "description": "Job longitude"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/job/delete": {
+         "post": {
+            "tags": [
+               "Jobs"
+            ],
+            "summary": "Delete Job",
+            "description": "Api to delete",
+            "operationId": "api.deleteJob",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "job_id",
+                  "type": "integer",
+                  "required": true,
+                  "description": "Job id"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/job/comment": {
+         "post": {
+            "tags": [
+               "Jobs"
+            ],
+            "summary": "Post Job comment",
+            "description": "Api to post job comment",
+            "operationId": "api.postJobComment",
+            "consumes": [
+               "multipart/form-data"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "task_id",
+                  "type": "integer",
+                  "required": true,
+                  "description": "Job id"
+               },
+               {
+                  "in": "formData",
+                  "name": "parent_comment_id",
+                  "type": "integer",
+                  "description": "Parent comment id (if this is reply)"
+               },
+               {
+                  "in": "formData",
+                  "name": "comment",
+                  "type": "string",
+                  "required": true,
+                  "description": "Comment"
+               },
+               {
+                  "in": "formData",
+                  "name": "attatchment",
+                  "type": "file",
+                  "description": "Comment Attatchment"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/job/comments": {
+         "get": {
+            "tags": [
+               "Jobs"
+            ],
+            "summary": "Get job comment list",
+            "description": "Api to get job comment list",
+            "operationId": "api.getCommentList",
+            "consumes": [],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "query",
+                  "name": "task_id",
+                  "type": "integer",
+                  "required": true,
+                  "description": "Job id"
+               },
+               {
+                  "in": "query",
+                  "name": "pp",
+                  "type": "integer",
+                  "description": "records per page"
+               },
+               {
+                  "in": "query",
+                  "name": "pg",
+                  "type": "integer",
+                  "description": "page number"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/job/assign": {
+         "post": {
+            "tags": [
+               "Jobs"
+            ],
+            "summary": "Assign job",
+            "description": "Api to to finalize offer for job",
+            "operationId": "api.assignJob",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "offerId",
+                  "type": "integer",
+                  "required": true,
+                  "description": "Offer id which is finalized for job"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/job/complete": {
+         "post": {
+            "tags": [
+               "Jobs"
+            ],
+            "summary": "Complete job",
+            "description": "Api to to complete job",
+            "operationId": "api.completeJob",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "jobId",
+                  "type": "integer",
+                  "required": true,
+                  "description": " id which is completed"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/job/offer": {
+         "post": {
+            "tags": [
+               "Jobs"
+            ],
+            "summary": "Post Job offer",
+            "description": "Api to post job offer",
+            "operationId": "api.postJobOffer",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "task_id",
+                  "type": "integer",
+                  "required": true,
+                  "description": "Job id"
+               },
+               {
+                  "in": "formData",
+                  "name": "offer_amount",
+                  "type": "number",
+                  "required": true,
+                  "description": "Offer Amount"
+               },
+               {
+                  "in": "formData",
+                  "name": "comment",
+                  "type": "string",
+                  "required": true,
+                  "description": "Comment"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/job/offer/details": {
+         "get": {
+            "tags": [
+               "Jobs"
+            ],
+            "summary": "get Job offer details",
+            "description": "Api to get job offer details",
+            "operationId": "api.getOfferDetails",
+            "consumes": [],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "query",
+                  "name": "offerId",
+                  "type": "integer",
+                  "required": true,
+                  "description": "Id of offer for which to get details"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/job/offers/review": {
+         "get": {
+            "tags": [
+               "Jobs"
+            ],
+            "summary": "Get job offers list",
+            "description": "Api to get job offer list",
+            "operationId": "api.getOfferList",
+            "consumes": [],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "query",
+                  "name": "task_id",
+                  "type": "integer",
+                  "required": true,
+                  "description": "Job id"
+               },
+               {
+                  "in": "query",
+                  "name": "sequence",
+                  "type": "integer",
+                  "required": true,
+                  "description": "Offer sequence number"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/job/offer/update": {
+         "post": {
+            "tags": [
+               "Jobs"
+            ],
+            "summary": "Update Job offer",
+            "description": "Api to update job offer",
+            "operationId": "api.updateOffer",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "offer_id",
+                  "type": "integer",
+                  "required": true,
+                  "description": "offer id"
+               },
+               {
+                  "in": "formData",
+                  "name": "offer_comment",
+                  "type": "string",
+                  "description": "Comment to update"
+               },
+               {
+                  "in": "formData",
+                  "name": "offer_amount",
+                  "type": "number",
+                  "description": "Offer amount"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/job/offer/delete": {
+         "post": {
+            "tags": [
+               "Jobs"
+            ],
+            "summary": "delete Job offer",
+            "description": "Api to delete job offer",
+            "operationId": "api.deleteoffer",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "offer_id",
+                  "type": "integer",
+                  "required": true,
+                  "description": "offer id"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/job/feedback": {
+         "post": {
+            "tags": [
+               "Jobs"
+            ],
+            "summary": "Update job Feedback",
+            "description": "Api to mark job feedback",
+            "operationId": "api.jobFeedback",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "job_id",
+                  "type": "string",
+                  "required": true,
+                  "description": "Id of the job for which feedback is to be provided"
+               },
+               {
+                  "in": "formData",
+                  "name": "feedback_tags",
+                  "type": "array",
+                  "enum": [
+                     "skilled",
+                     "would_recommend",
+                     "on_budget",
+                     "on_time"
+                  ],
+                  "required": true,
+                  "description": "Tags on which rating is given. Multiple tags are comma seperated"
+               },
+               {
+                  "in": "formData",
+                  "name": "rating",
+                  "type": "integer",
+                  "enum": [
+                     0,
+                     1,
+                     2,
+                     3,
+                     4,
+                     5
+                  ],
+                  "required": true,
+                  "description": "Star rating"
+               },
+               {
+                  "in": "formData",
+                  "name": "comment",
+                  "type": "string",
+                  "required": true,
+                  "description": "Feedback Comment"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/job/uploaddoc": {
+         "post": {
+            "tags": [
+               "Jobs"
+            ],
+            "summary": "Upload Job document",
+            "description": "Api to upload job document",
+            "operationId": "job.uploaddoc",
+            "consumes": [
+               "multipart/form-data"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "job_id",
+                  "type": "number",
+                  "required": true,
+                  "description": "Id of job for which document is to be uploaded"
+               },
+               {
+                  "in": "formData",
+                  "name": "document",
+                  "type": "file",
+                  "required": true,
+                  "description": "Doc to upload"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/user/sendotp": {
+         "post": {
+            "tags": [
+               "User"
+            ],
+            "summary": "Send OTP to user",
+            "description": "Api to send OTP to user",
+            "operationId": "user.sendotp",
+            "consumes": [
+               "multipart/form-data"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "mobile",
+                  "type": "string",
+                  "required": true,
+                  "description": "Phone number without country code"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/user/verifyotp": {
+         "post": {
+            "tags": [
+               "User"
+            ],
+            "summary": "verify user OTP",
+            "description": "Api to verify OTP send to user",
+            "operationId": "user.verifyotp",
+            "consumes": [
+               "multipart/form-data"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "otp",
+                  "type": "string",
+                  "required": true,
+                  "description": "Received OTP"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/newsletter/subscribe": {
+         "post": {
+            "tags": [
+               "Newsletter"
+            ],
+            "summary": "Subscribe to newsletter",
+            "description": "Api to subscribe to newsletter",
+            "operationId": "api.newslettersubscribe",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "email",
+                  "type": "string",
+                  "required": true,
+                  "description": "Email that has subscribed for newsletter"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/messages/send": {
+         "post": {
+            "tags": [
+               "Messages"
+            ],
+            "summary": "Send new message",
+            "description": "Api to send new message",
+            "operationId": "api.newmessage",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "to_user",
+                  "type": "number",
+                  "required": true,
+                  "description": "user to whom message is to be sent"
+               },
+               {
+                  "in": "formData",
+                  "name": "job_id",
+                  "type": "number",
+                  "required": true,
+                  "description": "Job id for which message is being sent"
+               },
+               {
+                  "in": "formData",
+                  "name": "message",
+                  "type": "number",
+                  "required": true,
+                  "description": "Message that is to be sent . It should be base64 encoded"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/test/stripe": {
+         "post": {
+            "tags": [
+               "Test"
+            ],
+            "summary": "Test stripe",
+            "description": "Api to test stripe",
+            "operationId": "api.teststripe",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/test/notification": {
+         "post": {
+            "tags": [
+               "Test"
+            ],
+            "summary": "Test notification",
+            "description": "Api to test notification",
+            "operationId": "api.testnotification",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "to_user",
+                  "type": "number",
+                  "required": true,
+                  "description": "user to whom message is to be sent"
+               },
+               {
+                  "in": "formData",
+                  "name": "message",
+                  "type": "number",
+                  "required": true,
+                  "description": "Message to be sent"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/test/transalation": {
+         "get": {
+            "tags": [
+               "Test"
+            ],
+            "summary": "Test google translation",
+            "description": "Api to test translation",
+            "operationId": "api.testtranslation",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/messages/inbox": {
+         "get": {
+            "tags": [
+               "Messages"
+            ],
+            "summary": "Get listing for user inbox",
+            "description": "Api to get user inbox",
+            "operationId": "api.userinbox",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "query",
+                  "name": "pp",
+                  "type": "number",
+                  "description": "Messages per page"
+               },
+               {
+                  "in": "query",
+                  "name": "pg",
+                  "type": "number",
+                  "description": "page number"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/messages/conversation": {
+         "get": {
+            "tags": [
+               "Messages"
+            ],
+            "summary": "Get conversation",
+            "description": "Api to get conversation (Messages for particular task between two users )",
+            "operationId": "api.getconversation",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "query",
+                  "name": "with_user",
+                  "type": "number",
+                  "required": true,
+                  "description": "user to whom message listing is to be get"
+               },
+               {
+                  "in": "query",
+                  "name": "job_id",
+                  "type": "number",
+                  "required": true,
+                  "description": "Job id for which messages are to be get"
+               },
+               {
+                  "in": "query",
+                  "name": "pp",
+                  "type": "number",
+                  "description": "Messages per page"
+               },
+               {
+                  "in": "query",
+                  "name": "pg",
+                  "type": "number",
+                  "description": "page number"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/userskills/add": {
+         "post": {
+            "tags": [
+               "More Tab"
+            ],
+            "summary": "Add user skill",
+            "description": "Api to add user skills",
+            "operationId": "api.adduserskills",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "skillType",
+                  "type": "string",
+                  "enum": [
+                     "languages",
+                     "work",
+                     "transportation",
+                     "education",
+                     "speciality"
+                  ],
+                  "required": true,
+                  "description": "Skill Type to be added"
+               },
+               {
+                  "in": "formData",
+                  "name": "value",
+                  "type": "string",
+                  "required": true,
+                  "description": "Skill to set"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/userskills/list": {
+         "get": {
+            "tags": [
+               "More Tab"
+            ],
+            "summary": "List user skill",
+            "description": "Api to list user skills",
+            "operationId": "api.listuserskills",
+            "consumes": [],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "query",
+                  "name": "skillType",
+                  "type": "string",
+                  "enum": [
+                     "languages",
+                     "work",
+                     "transportation",
+                     "education",
+                     "speciality"
+                  ],
+                  "description": "Skill Type to be added"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/job/reviewlist": {
+         "get": {
+            "tags": [
+               "More Tab"
+            ],
+            "summary": "Get user jobs to review",
+            "description": "Api to list user jobs to review",
+            "operationId": "api.listuserjobreview",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "query",
+                  "name": "pp",
+                  "type": "number",
+                  "description": "Reviews per page"
+               },
+               {
+                  "in": "query",
+                  "name": "pg",
+                  "type": "number",
+                  "description": "page number"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/userskills/delete": {
+         "post": {
+            "tags": [
+               "More Tab"
+            ],
+            "summary": "Delete user skill",
+            "description": "Api to delete user skills",
+            "operationId": "api.listuserskills",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "skillType",
+                  "type": "string",
+                  "enum": [
+                     "languages",
+                     "work",
+                     "transportation",
+                     "education",
+                     "speciality"
+                  ],
+                  "required": true,
+                  "description": "Skill Type to be added"
+               },
+               {
+                  "in": "formData",
+                  "name": "value",
+                  "type": "string",
+                  "required": true,
+                  "description": "Message to be sent"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/preferences/notification/get": {
+         "get": {
+            "tags": [
+               "More Tab"
+            ],
+            "summary": "Api to get notification settings",
+            "description": "Api to get notification settings",
+            "operationId": "user.getnotificationsettings",
+            "consumes": [
+               "application/json"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "query",
+                  "name": "alertType",
+                  "description": "Type of notification for which setting is to be fetched.If left blank all settings will be returned",
+                  "type": "string",
+                  "enum": [
+                     "transactional",
+                     "task_updates",
+                     "task_reminders",
+                     "fixthis_alerts",
+                     "task_recommendation",
+                     "helpful_information",
+                     "updates_newsletters"
+                  ]
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/user/updatecheckinfo": {
+         "post": {
+            "tags": [
+               "User"
+            ],
+            "summary": "Api to update mandatory info before placing order",
+            "description": "",
+            "operationId": "user.updatecheckinfo",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "fieldType",
+                  "description": "Type of field to be updated",
+                  "type": "string",
+                  "required": true,
+                  "enum": [
+                     "dob",
+                     "billing_address"
+                  ]
+               },
+               {
+                  "in": "formData",
+                  "name": "value",
+                  "description": "Value to be set.In case of DOB it should be yyyy-mm-dd \n for billing address {\"city\":\"North Miami Beach\",\"state\":\"Florida\",\"street_address\":\"your address here\",\"zipcode\":\"2222\"}",
+                  "type": "string",
+                  "required": true
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/user/carddetails": {
+         "post": {
+            "tags": [
+               "Payments"
+            ],
+            "summary": "Api to handle card details",
+            "description": "Api to handle user card details",
+            "operationId": "user.handlecarddetails",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "card_name",
+                  "description": "card name",
+                  "type": "string",
+                  "required": true
+               },
+               {
+                  "in": "formData",
+                  "name": "card_number",
+                  "description": "card number",
+                  "type": "number",
+                  "required": true
+               },
+               {
+                  "in": "formData",
+                  "name": "exp_month",
+                  "description": "Expiration month",
+                  "type": "integer",
+                  "required": true
+               },
+               {
+                  "in": "formData",
+                  "name": "exp_year",
+                  "description": "Expiration year",
+                  "type": "integer",
+                  "required": true
+               },
+               {
+                  "in": "formData",
+                  "name": "cvc",
+                  "description": "card CVC",
+                  "type": "integer",
+                  "required": true
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/user/bankdetails": {
+         "post": {
+            "tags": [
+               "Payments"
+            ],
+            "summary": "Api to handle bank details",
+            "description": "Api to handle user bank details",
+            "operationId": "user.handlebankdetails",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "account_name",
+                  "description": "User name for account",
+                  "type": "string",
+                  "required": true
+               },
+               {
+                  "in": "formData",
+                  "name": "bank_name",
+                  "description": "Bank name",
+                  "type": "string",
+                  "required": true
+               },
+               {
+                  "in": "formData",
+                  "name": "routing_number",
+                  "description": "Routing Number",
+                  "type": "integer",
+                  "required": true
+               },
+               {
+                  "in": "formData",
+                  "name": "is_default_method",
+                  "description": "Is this bank account default",
+                  "type": "integer",
+                  "enum": [
+                     0,
+                     1
+                  ],
+                  "required": true
+               },
+               {
+                  "in": "formData",
+                  "name": "account_number",
+                  "description": "Account Number",
+                  "type": "integer",
+                  "required": true
+               },
+               {
+                  "in": "formData",
+                  "name": "personal_id_number",
+                  "description": "Personal identification number",
+                  "type": "string",
+                  "required": true
+               },
+               {
+                  "in": "formData",
+                  "name": "identiy_doc",
+                  "type": "file",
+                  "required": true,
+                  "description": "Identity document to upload"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/user/transactions": {
+         "get": {
+            "tags": [
+               "Payments"
+            ],
+            "summary": "List user transactions",
+            "description": "Api to list user skills",
+            "operationId": "api.listuserstransactions",
+            "consumes": [],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "query",
+                  "name": "transactionType",
+                  "type": "number",
+                  "enum": [
+                     1,
+                     2
+                  ],
+                  "description": "Flow of transaction 1==>Earned, 2=>outgoing",
+                  "required": true
+               },
+               {
+                  "in": "query",
+                  "name": "type",
+                  "type": "number",
+                  "required": true,
+                  "enum": [
+                     1,
+                     2,
+                     3,
+                     4
+                  ],
+                  "description": "1=current quarter, 2=>last quarter, 3=>current finance year, 4=> last finance year"
+               },
+               {
+                  "in": "query",
+                  "name": "pp",
+                  "type": "integer",
+                  "description": "Number of transactions per page"
+               },
+               {
+                  "in": "query",
+                  "name": "pg",
+                  "type": "integer",
+                  "description": "Page number"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/preferences/notification/update": {
+         "post": {
+            "tags": [
+               "More Tab"
+            ],
+            "summary": "Api to update notification settings",
+            "description": "Api to update notification settings",
+            "operationId": "user.getnotificationsettings",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "alertType",
+                  "description": "Type of notification for which setting is to be fetched.If left blank all settings will be returned",
+                  "type": "string",
+                  "required": true,
+                  "enum": [
+                     "transactional",
+                     "task_updates",
+                     "task_reminders",
+                     "fixthis_alerts",
+                     "task_recommendation",
+                     "helpful_information",
+                     "updates_newsletters"
+                  ]
+               },
+               {
+                  "in": "formData",
+                  "name": "email",
+                  "description": "Settings for email",
+                  "type": "integer",
+                  "enum": [
+                     0,
+                     1
+                  ]
+               },
+               {
+                  "in": "formData",
+                  "name": "sms",
+                  "description": "Settings for sms",
+                  "type": "integer",
+                  "enum": [
+                     0,
+                     1
+                  ]
+               },
+               {
+                  "in": "formData",
+                  "name": "push",
+                  "description": "Settings for push",
+                  "type": "integer",
+                  "enum": [
+                     0,
+                     1
+                  ]
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/preferences/taskalert/add": {
+         "post": {
+            "tags": [
+               "More Tab"
+            ],
+            "summary": "Api to add task alert",
+            "description": "This api is to add task alert",
+            "operationId": "user.addtaskalert",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "alert_type",
+                  "description": "Type of alert that is to be set 1=>inperson, 2=>online",
+                  "type": "integer",
+                  "required": true,
+                  "enum": [
+                     1,
+                     2
+                  ]
+               },
+               {
+                  "in": "formData",
+                  "name": "keyword",
+                  "description": "keyword for alert",
+                  "type": "string",
+                  "required": true
+               },
+               {
+                  "in": "formData",
+                  "name": "distance",
+                  "description": "Distance for which alert is to be set (Miles)",
+                  "type": "integer"
+               },
+               {
+                  "in": "formData",
+                  "name": "suburb",
+                  "description": "suburb",
+                  "type": "string"
+               },
+               {
+                  "in": "formData",
+                  "name": "suburb_lat",
+                  "description": "Suburb latitude",
+                  "type": "number"
+               },
+               {
+                  "in": "formData",
+                  "name": "suburb_long",
+                  "description": "Suburb longitude",
+                  "type": "number"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/applanguages": {
+         "get": {
+            "tags": [
+               "More Tab"
+            ],
+            "summary": "List of available app languages",
+            "description": "Api to list available app languages",
+            "operationId": "api.listavailablelanguages",
+            "consumes": [],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/user/setlanguage": {
+         "post": {
+            "tags": [
+               "More Tab"
+            ],
+            "summary": "Api for user to set lanugaue",
+            "description": "This api is to set language for user",
+            "operationId": "user.setapplanguage",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "language_id",
+                  "description": "Id of language that is to be set",
+                  "type": "integer",
+                  "required": true
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/preferences/taskalert/update": {
+         "post": {
+            "tags": [
+               "More Tab"
+            ],
+            "summary": "Api to update task alert",
+            "description": "This api is to update task alert",
+            "operationId": "user.udpatetaskalert",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "alertId",
+                  "description": "Id of alert that is to be updated",
+                  "type": "integer",
+                  "required": true
+               },
+               {
+                  "in": "formData",
+                  "name": "alert_type",
+                  "description": "Type of alert that is to be set 1=>inperson, 2=>online",
+                  "type": "integer",
+                  "required": true,
+                  "enum": [
+                     1,
+                     2
+                  ]
+               },
+               {
+                  "in": "formData",
+                  "name": "keyword",
+                  "description": "keyword for alert",
+                  "type": "string",
+                  "required": true
+               },
+               {
+                  "in": "formData",
+                  "name": "distance",
+                  "description": "Distance for which alert is to be set (Miles)",
+                  "type": "integer"
+               },
+               {
+                  "in": "formData",
+                  "name": "suburb",
+                  "description": "suburb",
+                  "type": "string"
+               },
+               {
+                  "in": "formData",
+                  "name": "suburb_lat",
+                  "description": "Suburb latitude",
+                  "type": "number"
+               },
+               {
+                  "in": "formData",
+                  "name": "suburb_long",
+                  "description": "Suburb longitude",
+                  "type": "number"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/preferences/taskalert/delete": {
+         "post": {
+            "tags": [
+               "More Tab"
+            ],
+            "summary": "Api to delete task alert",
+            "description": "This api is to delete task alert",
+            "operationId": "user.deletealert",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "alertId",
+                  "description": "Id of alert that is to be deleted",
+                  "type": "integer",
+                  "required": true
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/taskalerts/list": {
+         "get": {
+            "tags": [
+               "More Tab"
+            ],
+            "summary": "Api to get alert list",
+            "description": "This api is to get list task alert",
+            "operationId": "user.gettaskalerts",
+            "consumes": [
+               "application/json"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "query",
+                  "name": "pp",
+                  "description": "Number of alerts per page",
+                  "type": "integer"
+               },
+               {
+                  "in": "query",
+                  "name": "pg",
+                  "description": "Page Number",
+                  "type": "integer"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/report": {
+         "post": {
+            "tags": [
+               "Miscellaneous"
+            ],
+            "summary": "Api to report task",
+            "description": "This api is to report job",
+            "operationId": "misc.report",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "category",
+                  "description": "Category for which report is to be sent",
+                  "type": "string",
+                  "required": true
+               },
+               {
+                  "in": "formData",
+                  "name": "comment",
+                  "description": "Report comment",
+                  "type": "string",
+                  "required": true
+               },
+               {
+                  "in": "formData",
+                  "name": "task_id",
+                  "description": "Task which is to be reported",
+                  "type": "integer",
+                  "required": true
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/contactus": {
+         "post": {
+            "tags": [
+               "Miscellaneous"
+            ],
+            "summary": "Api for contactus",
+            "description": "This api is for contact us",
+            "operationId": "misc.contactus",
+            "consumes": [
+               "multipart/form-data"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "message",
+                  "description": "Message",
+                  "type": "string",
+                  "required": true,
+                  "format": "text"
+               },
+               {
+                  "in": "formData",
+                  "name": "attachment",
+                  "description": "Attachment",
+                  "type": "file"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/admin/auth": {
+         "post": {
+            "tags": [
+               "Admin"
+            ],
+            "summary": "admin login",
+            "description": "",
+            "operationId": "auth.adminlogin",
+            "consumes": [
+               "application/json"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "body",
+                  "name": "loginRequestObj",
+                  "required": true,
+                  "description": "Request Object",
+                  "schema": {
+                     "$ref": "#/definitions/LoginRequest"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/admin/dashboard": {
+         "get": {
+            "tags": [
+               "Admin"
+            ],
+            "summary": "Get admin dashboard data",
+            "description": "Api to get admin dashboard data",
+            "operationId": "api.dashboard",
+            "consumes": [],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/admin/users": {
+         "get": {
+            "tags": [
+               "Admin"
+            ],
+            "summary": "Get Users List",
+            "description": "Api to get user list for admin",
+            "operationId": "api.userlist",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "query",
+                  "name": "search_key",
+                  "type": "string",
+                  "description": "Keyword to search for"
+               },
+               {
+                  "in": "query",
+                  "name": "sort_field",
+                  "type": "string",
+                  "enum": [
+                     "email",
+                     "first_name",
+                     "last_name",
+                     "created_at"
+                  ],
+                  "description": "Sort field"
+               },
+               {
+                  "in": "query",
+                  "name": "status",
+                  "type": "string",
+                  "enum": [
+                     "active",
+                     "inactive",
+                     "deleted"
+                  ],
+                  "description": "User Status"
+               },
+               {
+                  "in": "query",
+                  "name": "user_type",
+                  "type": "string",
+                  "enum": [
+                     "fixer",
+                     "poster"
+                  ],
+                  "description": "Whether user is registered as fixer for poster "
+               },
+               {
+                  "in": "query",
+                  "name": "sort_order",
+                  "type": "string",
+                  "enum": [
+                     "asc",
+                     "desc"
+                  ],
+                  "description": "Sort order"
+               },
+               {
+                  "in": "query",
+                  "name": "sort_order",
+                  "type": "string",
+                  "enum": [
+                     "asc",
+                     "desc"
+                  ],
+                  "description": "Sort order"
+               },
+               {
+                  "in": "query",
+                  "name": "pp",
+                  "type": "number",
+                  "description": "Users per page"
+               },
+               {
+                  "in": "query",
+                  "name": "pg",
+                  "type": "number",
+                  "description": "page number"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/admin/user/handle": {
+         "post": {
+            "tags": [
+               "Admin"
+            ],
+            "summary": "Handle user add and edit",
+            "description": "Api to handle user add and edit",
+            "operationId": "api.userlist",
+            "consumes": [
+               "multipart/form-data"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "user_id",
+                  "type": "number",
+                  "description": "User id in case of edit"
+               },
+               {
+                  "in": "formData",
+                  "name": "email",
+                  "type": "string",
+                  "required": true,
+                  "description": "User email"
+               },
+               {
+                  "in": "formData",
+                  "name": "first_name",
+                  "type": "string",
+                  "required": true,
+                  "description": "User first name"
+               },
+               {
+                  "in": "formData",
+                  "name": "last_name",
+                  "type": "string",
+                  "required": true,
+                  "description": "User last name"
+               },
+               {
+                  "in": "formData",
+                  "name": "mobile_number",
+                  "type": "string",
+                  "required": true,
+                  "description": "User phone number"
+               },
+               {
+                  "in": "formData",
+                  "name": "location",
+                  "type": "string",
+                  "required": true,
+                  "description": "User location"
+               },
+               {
+                  "in": "formData",
+                  "name": "tagline",
+                  "type": "string",
+                  "description": "User tagline"
+               },
+               {
+                  "in": "formData",
+                  "name": "about",
+                  "type": "string",
+                  "description": "User about"
+               },
+               {
+                  "in": "formData",
+                  "name": "birth_date",
+                  "type": "string",
+                  "description": "User dob 'yyyy-mm-dd'"
+               },
+               {
+                  "in": "formData",
+                  "name": "asFixer",
+                  "type": "integer",
+                  "enum": [
+                     0,
+                     1
+                  ],
+                  "required": true,
+                  "description": "Do you want to create profile as fixer"
+               },
+               {
+                  "in": "formData",
+                  "name": "asPoster",
+                  "type": "integer",
+                  "enum": [
+                     0,
+                     1
+                  ],
+                  "required": true,
+                  "description": "Do you want to create profile as poster"
+               },
+               {
+                  "in": "formData",
+                  "name": "userSkills",
+                  "type": "object",
+                  "description": "User skills in object format . {\"transportation\":[\"tag1\",\"tag2\"],\"languages\":[\"tag3\",\"tag4\"],\"work\":[\"tag5\",\"tag6\"],\"education\":[\"tag7\",\"tag8\"],\"speciality\":[\"tag9\",\"tag10\"]}"
+               },
+               {
+                  "in": "formData",
+                  "name": "profile_pic",
+                  "type": "file",
+                  "description": "User profile pic"
+               },
+               {
+                  "in": "formData",
+                  "name": "cover_pic",
+                  "type": "file",
+                  "description": "User cover pic"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/admin/user/status": {
+         "put": {
+            "tags": [
+               "Admin"
+            ],
+            "summary": "Set user status",
+            "description": "Api to set user status",
+            "operationId": "api.setuserstatus",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "userId",
+                  "type": "integer",
+                  "required": true,
+                  "description": "Id of the user for whom status is to be set"
+               },
+               {
+                  "in": "formData",
+                  "name": "status",
+                  "type": "integer",
+                  "required": true,
+                  "enum": [
+                     0,
+                     1
+                  ],
+                  "description": "user status to be set"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/admin/user/details": {
+         "get": {
+            "tags": [
+               "Admin"
+            ],
+            "summary": "User details",
+            "description": "Api to details user",
+            "operationId": "api.userdetails",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "query",
+                  "name": "userId",
+                  "type": "integer",
+                  "required": true,
+                  "description": "Id of the user to fetch details for"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/admin/user/uploadpic": {
+         "post": {
+            "tags": [
+               "Admin"
+            ],
+            "summary": "Upload profile pic for user",
+            "description": "Api to upload profile pic for user",
+            "operationId": "user.adminuploaduserprofilepic",
+            "consumes": [
+               "multipart/form-data"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "profile_pic",
+                  "type": "file",
+                  "required": true,
+                  "description": "Pic to upload"
+               },
+               {
+                  "in": "formData",
+                  "name": "user_id",
+                  "type": "integer",
+                  "required": true,
+                  "description": "user for whom pic is to be uploaded"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/admin/user/uploadcoverpic": {
+         "post": {
+            "tags": [
+               "Admin"
+            ],
+            "summary": "Upload cover pic for user",
+            "description": "Api to upload cover pic for user",
+            "operationId": "user.adminuploadusercoverpic",
+            "consumes": [
+               "multipart/form-data"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "cover_pic",
+                  "type": "file",
+                  "required": true,
+                  "description": "Pic to upload"
+               },
+               {
+                  "in": "formData",
+                  "name": "user_id",
+                  "type": "integer",
+                  "required": true,
+                  "description": "user for whom pic is to be uploaded"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/admin/user/resetpassword": {
+         "post": {
+            "tags": [
+               "Admin"
+            ],
+            "summary": "Reset user password",
+            "description": "Api to reset user password ",
+            "operationId": "user.adminresetuserpassword",
+            "consumes": [
+               "multipart/form-data"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "user_id",
+                  "type": "integer",
+                  "required": true,
+                  "description": "user for password is to be reset"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/admin/user/delete": {
+         "delete": {
+            "tags": [
+               "Admin"
+            ],
+            "summary": "Delete user ",
+            "description": "Api to delete user",
+            "operationId": "api.deleteuser",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "userId",
+                  "type": "integer",
+                  "required": true,
+                  "description": "Id of the user to be deleted"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/admin/jobs": {
+         "get": {
+            "tags": [
+               "Admin"
+            ],
+            "summary": "Get Jobs List",
+            "description": "Api to get job list for admin",
+            "operationId": "api.getJobList",
+            "consumes": [],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "query",
+                  "name": "search_key",
+                  "type": "string",
+                  "description": "Keyword to search for"
+               },
+               {
+                  "in": "query",
+                  "name": "jobs_for_user",
+                  "type": "number",
+                  "description": "Id of user to search job for"
+               },
+               {
+                  "in": "query",
+                  "name": "job_status",
+                  "type": "string",
+                  "enum": [
+                     "open",
+                     "assigned",
+                     "completed"
+                  ],
+                  "description": "Job Status that is to be searched for"
+               },
+               {
+                  "in": "query",
+                  "name": "sort_field",
+                  "type": "string",
+                  "enum": [
+                     "task_name",
+                     "task_price",
+                     "task_post_date"
+                  ],
+                  "description": "Sort field"
+               },
+               {
+                  "in": "query",
+                  "name": "sort_order",
+                  "type": "string",
+                  "enum": [
+                     "asc",
+                     "desc"
+                  ],
+                  "description": "Sort order"
+               },
+               {
+                  "in": "query",
+                  "name": "pp",
+                  "type": "number",
+                  "description": "Users per page"
+               },
+               {
+                  "in": "query",
+                  "name": "pg",
+                  "type": "number",
+                  "description": "page number"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/admin/job/status": {
+         "put": {
+            "tags": [
+               "Admin"
+            ],
+            "summary": "Set job status",
+            "description": "Api to set job status",
+            "operationId": "api.setjobstatus",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "jobId",
+                  "type": "integer",
+                  "required": true,
+                  "description": "Id of the job which is to be activated/deactivated"
+               },
+               {
+                  "in": "formData",
+                  "name": "status",
+                  "type": "integer",
+                  "required": true,
+                  "enum": [
+                     0,
+                     1
+                  ],
+                  "description": "Status to be set"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/admin/categories": {
+         "get": {
+            "tags": [
+               "Admin"
+            ],
+            "summary": "Get Jobs Categories",
+            "description": "Api to get job categories",
+            "operationId": "api.getJobCategories",
+            "consumes": [],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "query",
+                  "name": "search_key",
+                  "type": "string",
+                  "description": "Keyword to search for"
+               },
+               {
+                  "in": "query",
+                  "name": "pp",
+                  "type": "number",
+                  "description": "Users per page"
+               },
+               {
+                  "in": "query",
+                  "name": "pg",
+                  "type": "number",
+                  "description": "page number"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/admin/category/add": {
+         "post": {
+            "tags": [
+               "Admin"
+            ],
+            "summary": "Add Jobs Categories",
+            "description": "Api to add job category",
+            "operationId": "api.addJobCategory",
+            "consumes": [],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "category_name",
+                  "type": "string",
+                  "required": true,
+                  "description": "Category name to be added"
+               },
+               {
+                  "in": "formData",
+                  "name": "category_image",
+                  "type": "file",
+                  "required": true,
+                  "description": "category image"
+               },
+               {
+                  "in": "formData",
+                  "name": "category_description",
+                  "type": "string",
+                  "description": "Category Description"
+               },
+               {
+                  "in": "formData",
+                  "name": "is_online",
+                  "type": "string",
+                  "enum": [
+                     "0",
+                     "1"
+                  ],
+                  "required": true,
+                  "description": "Is category online"
+               },
+               {
+                  "in": "formData",
+                  "name": "category_parent_id",
+                  "type": "integer",
+                  "description": "Parent category id in case it is subcategory"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/admin/category/edit": {
+         "put": {
+            "tags": [
+               "Admin"
+            ],
+            "summary": "Add Jobs Categories",
+            "description": "Api to add job category",
+            "operationId": "api.addJobCategory",
+            "consumes": [],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "category_id",
+                  "type": "number",
+                  "required": true,
+                  "description": "Category id to be edited"
+               },
+               {
+                  "in": "formData",
+                  "name": "category_name",
+                  "type": "string",
+                  "description": "Category name to be added"
+               },
+               {
+                  "in": "formData",
+                  "name": "category_image",
+                  "type": "file",
+                  "description": "category image"
+               },
+               {
+                  "in": "formData",
+                  "name": "category_description",
+                  "type": "string",
+                  "description": "Category Description"
+               },
+               {
+                  "in": "formData",
+                  "name": "is_online",
+                  "type": "string",
+                  "enum": [
+                     "0",
+                     "1"
+                  ],
+                  "description": "Is category online"
+               },
+               {
+                  "in": "formData",
+                  "name": "category_parent_id",
+                  "type": "integer",
+                  "description": "Parent category id in case it is subcategory"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      },
+      "/admin/job/handle": {
+         "post": {
+            "tags": [
+               "Admin"
+            ],
+            "summary": "Handle job for admin",
+            "description": "Api to handle job from admin",
+            "operationId": "api.handleJob",
+            "consumes": [
+               "application/x-www-form-urlencoded"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "formData",
+                  "name": "job_id",
+                  "type": "number",
+                  "description": "Job id in case of update"
+               },
+               {
+                  "in": "formData",
+                  "name": "user_id",
+                  "type": "integer",
+                  "required": true,
+                  "description": "User id for whom job is being added"
+               },
+               {
+                  "in": "formData",
+                  "name": "job_name",
+                  "type": "string",
+                  "required": true,
+                  "description": "Job name"
+               },
+               {
+                  "in": "formData",
+                  "name": "job_description",
+                  "type": "string",
+                  "required": true,
+                  "description": "Job description"
+               },
+               {
+                  "in": "formData",
+                  "name": "is_online_task",
+                  "required": true,
+                  "type": "integer",
+                  "enum": [
+                     0,
+                     1
+                  ],
+                  "description": "Is this task to be done online"
+               },
+               {
+                  "in": "formData",
+                  "name": "category_id",
+                  "type": "integer",
+                  "required": true,
+                  "description": "category of job"
+               },
+               {
+                  "in": "formData",
+                  "name": "job_status",
+                  "required": true,
+                  "type": "integer",
+                  "enum": [
+                     0,
+                     1
+                  ],
+                  "description": "Job status 0==> Draft, 1=> Post"
+               },
+               {
+                  "in": "formData",
+                  "name": "hourly_rate",
+                  "type": "number",
+                  "description": "Hourly rate of job"
+               },
+               {
+                  "in": "formData",
+                  "name": "hours",
+                  "type": "number",
+                  "description": "Hours"
+               },
+               {
+                  "in": "formData",
+                  "name": "task_price",
+                  "type": "number",
+                  "description": "Task budget"
+               },
+               {
+                  "in": "formData",
+                  "name": "task_end_day",
+                  "type": "string",
+                  "description": "Task end day == > dd-mm-yyyy"
+               },
+               {
+                  "in": "formData",
+                  "name": "task_end_time",
+                  "type": "string",
+                  "description": "Task end time == > 12:00am"
+               },
+               {
+                  "in": "formData",
+                  "name": "no_of_fixers",
+                  "type": "number",
+                  "description": "Number of fixers"
+               },
+               {
+                  "in": "formData",
+                  "name": "abn_number",
+                  "type": "string",
+                  "description": "Poster abn number"
+               },
+               {
+                  "in": "formData",
+                  "name": "location",
+                  "type": "string",
+                  "required": true,
+                  "description": "Job location"
+               },
+               {
+                  "in": "formData",
+                  "name": "latitude",
+                  "required": true,
+                  "type": "string",
+                  "description": "Job latitude"
+               },
+               {
+                  "in": "formData",
+                  "name": "longitude",
+                  "required": true,
+                  "type": "string",
+                  "description": "Job longitude"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation"
+               }
+            }
+         }
+      }
+   },
+   "definitions": {
+      "LoginRequest": {
+         "type": "object",
+         "required": [
+            "email",
+            "password"
+         ],
+         "properties": {
+            "email": {
+               "type": "string",
+               "default": "string@mailinator.com"
+            },
+            "password": {
+               "type": "string",
+               "format": "password"
+            },
+            "device_token": {
+               "type": "string",
+               "format": "string"
+            },
+            "device_type": {
+               "type": "string",
+               "format": "string"
+            }
+         }
+      },
+      "LoginSocialRequest": {
+         "type": "object",
+         "required": [
+            "social_site",
+            "site_auth_token"
+         ],
+         "properties": {
+            "social_site": {
+               "type": "string",
+               "default": "fb/google"
+            },
+            "site_auth_token": {
+               "type": "string",
+               "format": "fb_auth_token"
+            },
+            "device_token": {
+               "type": "string",
+               "format": "string"
+            },
+            "device_type": {
+               "type": "string",
+               "format": "string"
+            }
+         }
+      },
+      "RegisterRequest": {
+         "type": "object",
+         "required": [
+            "email",
+            "password",
+            "device_type",
+            "device_token"
+         ],
+         "properties": {
+            "email": {
+               "type": "string",
+               "default": "string@mailinator.com"
+            },
+            "password": {
+               "type": "string",
+               "format": "password"
+            },
+            "device_token": {
+               "type": "string",
+               "format": "devicetoken"
+            },
+            "device_type": {
+               "type": "string",
+               "format": "1"
+            }
+         }
+      }
+   },
+   "securityDefinitions": {
+      "bearer": {
+         "in": "header",
+         "name": "Authorization",
+         "type": "apiKey"
+      }
+   }
+}
