@@ -31,7 +31,7 @@ class adminJobRoutes {
                search_key: Joi.string(),
                jobs_for_user: Joi.number(),
                sort_field: Joi.string(),
-               job_status: Joi.string().valid('open', 'assigned', 'completed'),
+               job_status: Joi.string().valid('', '0', '1', '2', '3', '4'),
                sort_order: Joi.string(),
             }
          },

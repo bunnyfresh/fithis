@@ -30,6 +30,38 @@ class MiscModel extends baseModel {
       return q.promise;
    }
 
+    /**
+     * Function to get admin dashboard jobs data
+     * **/
+    getJobsStatData() {
+        var q = Q.defer();
+        try {
+
+            var sql = `SELECT COUNT(*) as total_jobs FROM jobs;
+                       SELECT COUNT(IF(task_activity_status=0,1,NULL) ) as draft_jobs FROM jobs;
+                       SELECT COUNT(IF(task_activity_status=1,1,NULL) ) as open_jobs FROM jobs;
+                       SELECT COUNT(IF(task_activity_status=2,1,NULL) ) as assigned_jobs FROM jobs;
+                       SELECT COUNT(IF(task_activity_status=3,1,NULL) ) as done_jobs FROM jobs;
+                       SELECT COUNT(IF(task_activity_status=4,1,NULL) ) as canceled_jobs FROM jobs;`;
+            this.app.mysqldb.query(sql, {}).then(function (multiResponse) {
+                var returnSet = {
+                    total_jobs: multiResponse[0][0].total_jobs,
+                    draft_jobs: multiResponse[1][0].draft_jobs,
+                    open_jobs: multiResponse[2][0].open_jobs,
+                    assigned_jobs: multiResponse[3][0].assigned_jobs,
+                    done_jobs: multiResponse[4][0].done_jobs,
+                    canceled_jobs: multiResponse[5][0].canceled_jobs,
+                };
+                q.resolve({ status: "SUCCESS", message: 'Data successfully fetched', data: returnSet });
+            }).catch(function (error) {
+                q.reject({ status: "ERROR", message: 'Internal Server Error' });
+            });
+        }
+        catch (error) {
+            q.reject({ status: "ERROR", message: 'Internal Server Error' });
+        }
+        return q.promise;
+    }
 
    /**
       * Function to get admin dashboard data

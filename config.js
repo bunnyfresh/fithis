@@ -14,5 +14,6 @@ module.exports = {
         password : '12345',
         database : 'fixthis'
     },
-    JWT_SECRET: "fixthis"
+    JWT_SECRET: "fixthis",
+    JWT_EXPIRE_TIME: 10000000,
 }

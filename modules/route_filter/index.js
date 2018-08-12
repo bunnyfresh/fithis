@@ -200,7 +200,6 @@ class routeFilter {
             // console.log(authHeader[1]);
             try {
                req.token = jwt.verify(authHeader[1], process.env.JWT_SECRET);
-console.log(req.token.user_id);               
                req.session = {
                   userId: req.token.user_id
                };
@@ -288,6 +287,7 @@ console.log(req.token.user_id);
          '/api/admin/category/edit',
          '/api/admin/job/status',
          '/api/admin/dashboard',
+         '/api/admin/jobs-stat',
          '/api/admin/job/handle',
          '/api/admin/user/details',
          '/api/admin/user/handle',

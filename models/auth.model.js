@@ -30,11 +30,10 @@ class AuthModel extends baseModel {
                               LEFT JOIN sys_app_languages sal ON sal.id = up.app_language
                               WHERE email = :uid AND user_type=:ut ;`;
          var selectUserParams = { uid: username, ut: userType };
-         console.log(selectUserParams)
          this.app.mysqldb.query(selectUserSql, selectUserParams).then(function (resultSet) {
             if (resultSet.length > 0) {
                var userRow = resultSet[0];
-               bcrypt.compare(password, userRow.password).then((res) => {
+               bcrypt.compare(password, bcrypt.hashSync(userRow.password, 10)).then((res) => {
                   if (res) {
                      if (userRow.account_status == 0) {
                         q.reject({ status: "400", message: "Your account is not verifed." });
@@ -52,6 +51,7 @@ class AuthModel extends baseModel {
                               locale: userRow.locale,
                               isProfileCreated: (userRow.first_name == null) ? false : true
                            };
+
                            var token = jwt.sign(objToSendInToken, process.env.JWT_SECRET, {
                               expiresIn: process.env.JWT_EXPIRE_TIME
                            });

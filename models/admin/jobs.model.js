@@ -55,7 +55,7 @@ class AdminJobModel extends basejobModel {
 
          /** Filtering form job status**/
          if (filters.job_status) {
-            whereClause.push(`task_activity_status = ${me.statusTextToIdMap[filters.job_status]}`);
+            whereClause.push(`task_activity_status = ${filters.job_status}`);
          }
 
          /** Filtering for user id**/
@@ -70,7 +70,7 @@ class AdminJobModel extends basejobModel {
                         JOIN job_categories jc ON jc.category_id = ut.task_category_id 
                         JOIN users tp ON tp.id = ut.user_id 
                         LEFT JOIN user_profile upto ON upto.user_id = ut.user_id                       
-                        WHERE task_activity_status <> 0 AND (${conditionalWhere}) 
+                        WHERE task_activity_status <> -1 AND (${conditionalWhere}) 
                         GROUP BY ut.task_id                                         
                         ORDER BY ${filters.sort_field} ${filters.sort_order} 
                         LIMIT ${offset}, ${rowCount} ;`;
@@ -126,7 +126,6 @@ class AdminJobModel extends basejobModel {
                jobs: data,
                meta: metaInfo
             };
-
             var message = _.isEmpty(data) ? "Currently there are no jobs to fetch" : "Fetched  data successfully.";
             q.resolve({ status: "SUCCESS", message: message, data: returnSet });
          }).catch(function (error) {
