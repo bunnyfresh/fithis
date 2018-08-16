@@ -30,8 +30,7 @@ class UsersModel extends baseUserModel {
 
          var userTblColumns = [];
          var userProfileTblColumn = [];
-         var hashedPassword = bcrypt.hashSync(password, 10);
-         userData.password = hashedPassword;
+         userData.password = bcrypt.hashSync(password, 10);
 
          // user table
          _.each(userTblFields, function (column) {

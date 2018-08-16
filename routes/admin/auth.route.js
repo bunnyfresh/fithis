@@ -17,6 +17,7 @@ class adminUserRoutes {
    resource(mp) {
       let authControllerObj = new authController(this.app);
       this.app.post(mp + '/admin/auth', validate(this.validations.login), authControllerObj.authenticate);
+      this.app.post(mp + '/admin/refreshtoken', validate(this.validations.refresh), authControllerObj.refreshToken);
    }
 
    validations() {
@@ -28,8 +29,14 @@ class adminUserRoutes {
                password: Joi.string().required().min(6).max(10),
                device_token: Joi.string(),
                device_type: Joi.string().valid('1', '2')
-            }
-         }
+            },
+         },
+          refresh: {
+              options: { flatten: false },
+              body: {
+                  token: Joi.string(),
+              },
+          }
       };
       return validate;
    }

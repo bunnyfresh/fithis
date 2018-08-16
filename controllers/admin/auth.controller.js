@@ -1,5 +1,6 @@
 "use strict";
 
+const atob = require("atob");
 const authModel = require('../../models/auth.model');
 const userdeviceModel = require('../../models/usersdevices.model');
 var jwt = require('jsonwebtoken');
@@ -43,5 +44,26 @@ class AdminAuthController {
           }
       });
    }
+
+    refreshToken(req, res, next) {
+        try {
+            const token = req.body.token;
+            console.log(token);
+            var base64Url = token.split('.')[1];
+            var base64 = base64Url.replace('-', '+').replace('_', '/');
+
+            const decodeToken = JSON.parse(atob(base64));
+            const objToSendInToken = { ...decodeToken };
+            console.log(decodeToken);
+            const refreshToken = jwt.sign(objToSendInToken, process.env.JWT_SECRET, {
+                expiresIn: process.env.JWT_EXPIRE_TIME
+            });
+            this.helper.sendSuccessResponse(res, { token: refreshToken }, {});
+        }
+        catch (error) {
+            console.log(error);
+            this.helper.sendFailureResponse(res, { message: 'Internal server error' });
+        }
+    }
 }
 module.exports = AdminAuthController;
