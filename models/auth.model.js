@@ -33,7 +33,7 @@ class AuthModel extends baseModel {
          this.app.mysqldb.query(selectUserSql, selectUserParams).then(function (resultSet) {
             if (resultSet.length > 0) {
                var userRow = resultSet[0];
-               bcrypt.compare(password, bcrypt.hashSync(userRow.password, 10)).then((res) => {
+               bcrypt.compare(password, userRow.password).then((res) => {
                   if (res) {
                      if (userRow.account_status == 0) {
                         q.reject({ status: "400", message: "Your account is not verifed." });
